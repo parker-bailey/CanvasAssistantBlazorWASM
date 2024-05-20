@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<AuthorizeView>
+    <Authorized>
+        Hello, @context.User.Identity?.Name!
+        <button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+    </Authorized>
+    <NotAuthorized>
+        <a href="login" @onclick="OAuth">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+
+    public void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+
+    public void OAuth(){
+        Navigation.NavigateTo("https://davistech.instructure.com/login/oauth2/auth?client_id=140000000000479&redirect_uri=http://localhost:3000/api/auth/callback/Canvas&scope=&response_type=code&response_mode=query&state=pw09by7isrj&nonce=0fpn7imo6cie");
+    }
+}
